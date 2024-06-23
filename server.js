@@ -1,3 +1,5 @@
+// server.js
+
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -22,6 +24,12 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   chatController.handleConnection(io, socket);
+
+  // Initial user counts
+  io.sockets.emit('user-counts', {
+    onlineCount: io.engine.clientsCount,
+    connectedCount: chatController.connectedUsers.size / 2, // Divide by 2 as each pair counts once
+  });
 });
 
 const PORT = process.env.PORT || 4000;

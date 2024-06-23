@@ -1,3 +1,5 @@
+// script.js
+
 const socket = io();
 const loginForm = document.getElementById('login-form');
 const loginContainer = document.getElementById('login-container');
@@ -5,6 +7,10 @@ const chatContainer = document.getElementById('chat-container');
 const messageContainer = document.getElementById('message-container');
 const messageInput = document.getElementById('message-input');
 const sendButton = document.getElementById('send-button');
+const connectingSign = document.getElementById('connecting');
+const connectedUser = document.getElementById('connected-user');
+const onlineCount = document.getElementById('online-count');
+const connectedCount = document.getElementById('connected-count');
 
 let name, roomId;
 
@@ -36,9 +42,18 @@ function sendMessage() {
 }
 
 socket.on('receive-message', (data) => {
-    console.log("date...",data);
     const { message, name } = data;
     appendMessage(`${name}: ${message}`, 'receiver');
+});
+
+socket.on('chat-started', (room) => {
+    connectingSign.style.display = 'none';
+    connectedUser.textContent = `Connected to: ${room}`;
+});
+
+socket.on('user-counts', (counts) => {
+    onlineCount.textContent = `Online: ${counts.onlineCount}`;
+    connectedCount.textContent = `Connected: ${counts.connectedCount}`;
 });
 
 function appendMessage(message, type) {
