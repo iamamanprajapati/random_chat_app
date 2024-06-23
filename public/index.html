@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Chat App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login/Signup Form -->
+    <div id="login-container">
+        <h2>Login or Signup</h2>
+        <form id="login-form">
+            <input type="text" id="name-input" placeholder="Enter your name" required>
+            <input type="text" id="room-input" placeholder="Enter room ID" required>
+            <button type="submit">Join Chat</button>
+        </form>
+    </div>
+
+    <!-- Chat Interface -->
+    <div id="chat-container" style="display: none;">
+        <div id="message-container"></div>
+        <input type="text" id="message-input" placeholder="Type a message...">
+        <button id="send-button">Send</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
