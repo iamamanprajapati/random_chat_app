@@ -4,26 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Chat App</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Login/Signup Form -->
-    <div id="login-container">
-        <h2>Login or Signup</h2>
-        <form id="login-form">
-            <input type="text" id="name-input" placeholder="Enter your name" required>
-            <input type="text" id="room-input" placeholder="Enter room ID" required>
-            <button type="submit">Join Chat</button>
-        </form>
+    <div class="container" id="login-container">
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Login or Signup</span>
+                        <form id="login-form" class="material-form">
+                            <div class="input-field">
+                                <input type="text" id="name-input" class="validate" required>
+                                <label for="name-input">Enter your name</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="text" id="room-input" class="validate" required>
+                                <label for="room-input">Enter room ID</label>
+                            </div>
+                            <div class="input-field center-align">
+                                <button type="submit" class="btn waves-effect waves-light">Join Chat</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Chat Interface -->
     <div id="chat-container" style="display: none;">
         <div id="message-container"></div>
-        <input type="text" id="message-input" placeholder="Type a message...">
-        <button id="send-button">Send</button>
+        <div id="sender">
+            <input type="text" id="message-input" placeholder="Type a message...">
+            <button id="send-button">Send</button>
+        </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>

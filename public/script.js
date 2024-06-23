@@ -13,27 +13,41 @@ loginForm.addEventListener('submit', (e) => {
     name = document.getElementById('name-input').value;
     roomId = document.getElementById('room-input').value;
     socket.emit('join', { name, roomId });
-    loginContainer.style.display = 'none';
-    chatContainer.style.display = 'flex';
+    loginContainer.style.display = 'none';  
+    chatContainer.style.display = 'block';  
 });
 
-sendButton.addEventListener('click', () => {
-    const message = messageInput.value;
-    if (message) {
-        appendMessage(message, 'sender');
-        socket.emit('send-message', message);
-        messageInput.value = '';
+sendButton.addEventListener('click', sendMessage);
+
+messageInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        sendMessage();
     }
 });
 
-socket.on('receive-message', (message) => {
-    appendMessage(message, 'receiver');
+function sendMessage() {
+    const message = messageInput.value.trim();
+    
+    if (message) {
+        appendMessage(message, 'sender');
+        socket.emit('send-message', { message, name });
+        messageInput.value = '';
+    }
+}
+
+socket.on('receive-message', (data) => {
+    console.log("date...",data);
+    const { message, name } = data;
+    appendMessage(`${name}: ${message}`, 'receiver');
 });
 
 function appendMessage(message, type) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', type);
-    messageElement.innerText = message;
-    messageContainer.append(messageElement);
+    const messageText = document.createElement('span');
+    messageText.classList.add('message-text');
+    messageText.textContent = message;
+    messageElement.appendChild(messageText);
+    messageContainer.appendChild(messageElement);
     messageContainer.scrollTop = messageContainer.scrollHeight;
 }
