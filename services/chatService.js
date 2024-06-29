@@ -1,3 +1,5 @@
+// services/chatService.js
+
 const { User } = require('../models');
 
 const addUser = async ({ name, roomId, socketId }) => {
@@ -13,12 +15,7 @@ const removeUser = async (socketId) => {
   return user;
 };
 
-const findUserByRoomId = async (roomId) => {
-  return await User.findAll({ where: { roomId } });
-};
-
 module.exports = {
   addUser,
   removeUser,
-  findUserByRoomId,
 };
